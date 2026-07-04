@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: elastic-mapper-example
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+
+server:
+  port: 8080
+
+elastic-mapper:
+  hosts:
+    - 10.0.13.131:9200
+  scheme: http
+  connect-timeout-ms: 5000
+  socket-timeout-ms: 30000
+  max-conn-total: 30
+  max-conn-per-route: 10
+  max-result-window: 10000
+  date-format: yyyy-MM-dd HH:mm:ss
+  # 开启后每次 ES 请求会在日志中打印最终 DSL（调试用）
+  log-dsl: true
+  username: elastic
+  password: fx6kjFPdvFkn3XbtB8VB
+  mapper-xml-locations:
+    - es-mapper/
+
+logging:
+  level:
+    io.elasticmapper: DEBUG
+    io.elasticmapper.example: DEBUG

@@ -1,0 +1,9 @@
+# Test profile — minimal configuration without requiring a real ES instance.
+# XML scanning + bean wiring validation only (no ES connectivity needed).
+elastic-mapper:
+  hosts:
+    - 127.0.0.1:9200
+
+logging:
+  level:
+    io.elasticmapper: DEBUG

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    XML Mapper for UserMapper.
+    Placed in classpath:es-mapper/ — auto-scanned by ElasticMapper.
+
+    Supported dynamic tags:
+      <if test="...">       — conditional block (JEXL expression)
+      <where>               — auto-strips leading comma from first child
+      <set>                 — auto-strips leading comma from first child
+      <foreach>             — iterate collection
+      <choose>/<when>/<otherwise> — multi-way conditional
+      <trim>                — prefix/suffix/prefixOverrides/suffixOverrides
+-->
+<mapper>
+
+    <!--
+        Full-text + filter search with dynamic conditions.
+        Demonstrates <where>, <if>, and safe binding (#{param}).
+    -->
+    <select id="searchUsers">
+        {
+            "query": {
+                "bool": {
+                    <where>
+                        <if test="keyword != null and keyword != ''">
+                            ,{"must": [{"multi_match": {"query": #{keyword}, "fields": ["username", "bio", "email"]}}]}
+                        </if>
+                        <if test="minAge != null">
+                            ,{"filter": [{"range": {"age": {"gte": #{minAge}}}}]}
+                        </if>
+                        <if test="status != null and status != ''">
+                            ,{"filter": [{"term": {"status": #{status}}}]}
+                        </if>
+                    </where>
+                }
+            },
+            "size": 20,
+            "sort": [{"createdAt": "desc"}]
+        }
+    </select>
+
+    <!--
+        Aggregation: count users grouped by status.
+        Demonstrates a static query without dynamic tags.
+    -->
+    <select id="countByStatus">
+        {
+            "size": 0,
+            "aggs": {
+                "status_counts": {
+                    "terms": {"field": "status.keyword"}
+                }
+            }
+        }
+    </select>
+
+    <!--
+        Search users by a list of IDs.
+        Demonstrates <foreach> with collection iteration.
+    -->
+    <select id="findByIds">
+        {
+            "query": {
+                "ids": {
+                    "values": [
+                        <foreach collection="idList" item="id" separator=",">
+                            #{id}
+                        </foreach>
+                    ]
+                }
+            }
+        }
+    </select>
+
+    <!--
+        Partial update with dynamic fields.
+        Demonstrates <set> tag — strips leading comma.
+    -->
+    <update id="partialUpdate">
+        {
+            "doc": {
+                <set>
+                    <if test="username != null">
+                        ,"username": #{username}
+                    </if>
+                    <if test="bio != null">
+                        ,"bio": #{bio}
+                    </if>
+                    <if test="age != null">
+                        ,"age": #{age}
+                    </if>
+                    <if test="status != null">
+                        ,"status": #{status}
+                    </if>
+                </set>
+            }
+        }
+    </update>
+
+    <!--
+        Conditional query using choose/when/otherwise.
+    -->
+    <select id="conditionalSearch">
+        <choose>
+            <when test="keyword != null and keyword != ''">
+                {"query": {"multi_match": {"query": #{keyword}, "fields": ["username", "bio"]}}}
+            </when>
+            <when test="status != null and status != ''">
+                {"query": {"term": {"status": #{status}}}}
+            </when>
+            <otherwise>
+                {"query": {"match_all": {}}, "size": 10}
+            </otherwise>
+        </choose>
+    </select>
+
+</mapper>

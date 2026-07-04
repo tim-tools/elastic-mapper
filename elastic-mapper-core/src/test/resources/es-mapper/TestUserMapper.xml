@@ -1,0 +1,58 @@
+<mapper>
+    <select id="searchUsers">
+        {
+            "query": {
+                "bool": {
+                    <where>
+                        <if test="name != null">
+                            ,{"must": [{"match": {"name": #{name}}}]}
+                        </if>
+                        <if test="ageMin > 0">
+                            ,{"filter": [{"range": {"age": {"gte": #{ageMin}}}}]}
+                        </if>
+                    </where>
+                }
+            }
+        }
+    </select>
+
+    <select id="findByIds">
+        {
+            "query": {
+                "ids": {
+                    "values": [
+                        <foreach collection="idList" item="id" separator=",">
+                            #{id}
+                        </foreach>
+                    ]
+                }
+            }
+        }
+    </select>
+
+    <update id="partialUpdate">
+        {
+            "doc": {
+                <set>
+                    <if test="name != null">
+                        ,"name": #{name}
+                    </if>
+                    <if test="age != null">
+                        ,"age": #{age}
+                    </if>
+                </set>
+            }
+        }
+    </update>
+
+    <select id="conditionalSearch">
+        <choose>
+            <when test="keyword != null">
+                {"query": {"match": {"_all": #{keyword}}}}
+            </when>
+            <otherwise>
+                {"query": {"match_all": {}}}
+            </otherwise>
+        </choose>
+    </select>
+</mapper>
