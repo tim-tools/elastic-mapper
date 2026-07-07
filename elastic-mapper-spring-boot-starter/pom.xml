@@ -12,11 +12,8 @@
 
     <artifactId>elastic-mapper-spring-boot-starter</artifactId>
     <name>ElasticMapper Spring Boot Starter</name>
+    <packaging>jar</packaging>
     <description>Auto-configuration and @MapperScan for Spring Boot integration.</description>
-
-    <properties>
-        <spring-boot.version>2.7.18</spring-boot.version>
-    </properties>
 
     <dependencies>
         <dependency>
@@ -28,15 +25,11 @@
         <!-- Spring Boot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-autoconfigure</artifactId>
-            <version>${spring-boot.version}</version>
-            <scope>provided</scope>
+            <artifactId>spring-boot-autoconfigure</artifactId>            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <version>${spring-boot.version}</version>
-            <optional>true</optional>
+            <artifactId>spring-boot-configuration-processor</artifactId>            <optional>true</optional>
         </dependency>
 
         <!-- Testing -->
@@ -47,9 +40,7 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <version>${spring-boot.version}</version>
-            <scope>test</scope>
+            <artifactId>spring-boot-starter-test</artifactId>            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

@@ -14,10 +14,6 @@
     <name>ElasticMapper Example</name>
     <description>Example project demonstrating ElasticMapper usage with Spring Boot — entities, annotation-based &amp; XML-based Mappers, and a REST controller.</description>
 
-    <properties>
-        <spring-boot.version>2.7.18</spring-boot.version>
-    </properties>
-
     <dependencies>
         <!-- ElasticMapper Spring Boot Starter -->
         <dependency>
@@ -29,16 +25,12 @@
         <!-- Spring Boot Starter Web (for REST controller demo) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <version>${spring-boot.version}</version>
-        </dependency>
+            <artifactId>spring-boot-starter-web</artifactId>        </dependency>
 
         <!-- Testing -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <version>${spring-boot.version}</version>
-            <scope>test</scope>
+            <artifactId>spring-boot-starter-test</artifactId>            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
@@ -57,7 +49,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot.version}</version>
             </plugin>
         </plugins>
     </build>

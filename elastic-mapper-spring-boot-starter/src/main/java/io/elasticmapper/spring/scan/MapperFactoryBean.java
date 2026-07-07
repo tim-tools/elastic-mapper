@@ -6,52 +6,60 @@ import io.elasticmapper.executor.ElasticTemplate;
 import io.elasticmapper.parser.XMLMapperParser;
 import io.elasticmapper.plugin.InterceptorChain;
 
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.FactoryBean;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 
 /**
  * Spring {@link FactoryBean} that produces Mapper interface proxies.
  *
- * <p>All dependencies are injected via constructor — no field-level
- * {@code @Autowired} — so missing beans cause an immediate startup
- * failure rather than a silent NPE at invocation time.
+ * <p>Dependencies ({@link ElasticTemplate}, {@link MapperRegistry},
+ * {@link XMLMapperParser}, {@link InterceptorChain}) are resolved
+ * <b>lazily</b> from the {@link ApplicationContext} in {@link #getObject()}
+ * rather than via constructor injection.
+ *
+ * <p>This avoids forward-reference problems: the mapper bean definition
+ * is registered by {@link MapperScannerRegistrar} (an
+ * {@code ImportBeanDefinitionRegistrar} that runs immediately) before
+ * the auto-configuration that defines {@code elasticTemplate} etc.
+ * (processed as a {@code DeferredImportSelector} that runs later).
+ * By deferring resolution to {@code getObject()}, all beans are
+ * guaranteed to exist by the time the proxy is created.
  */
-public class MapperFactoryBean<T> implements FactoryBean<T> {
+public class MapperFactoryBean<T> implements FactoryBean<T>, ApplicationContextAware {
 
     private final Class<T> mapperInterface;
-    private final ElasticTemplate elasticTemplate;
-    private final MapperRegistry mapperRegistry;
-    private final XMLMapperParser xmlMapperParser;
-    private final InterceptorChain interceptorChain;
+    private ApplicationContext applicationContext;
 
-    public MapperFactoryBean(Class<T> mapperInterface,
-                             ElasticTemplate elasticTemplate,
-                             MapperRegistry mapperRegistry,
-                             XMLMapperParser xmlMapperParser,
-                             InterceptorChain interceptorChain) {
+    public MapperFactoryBean(Class<T> mapperInterface) {
         this.mapperInterface = mapperInterface;
-        this.elasticTemplate = elasticTemplate;
-        this.mapperRegistry = mapperRegistry;
-        this.xmlMapperParser = xmlMapperParser;
-        this.interceptorChain = interceptorChain;
     }
 
-    public MapperFactoryBean(String mapperInterfaceClassName,
-                             ElasticTemplate elasticTemplate,
-                             MapperRegistry mapperRegistry,
-                             XMLMapperParser xmlMapperParser,
-                             InterceptorChain interceptorChain) throws ClassNotFoundException {
+    /**
+     * Constructor used by {@link MapperScannerRegistrar} (class-name form,
+     * since the mapper interface may not be loadable at registration time).
+     */
+    public MapperFactoryBean(String mapperInterfaceClassName) throws ClassNotFoundException {
         @SuppressWarnings("unchecked")
         Class<T> clazz = (Class<T>) Class.forName(mapperInterfaceClassName);
         this.mapperInterface = clazz;
-        this.elasticTemplate = elasticTemplate;
-        this.mapperRegistry = mapperRegistry;
-        this.xmlMapperParser = xmlMapperParser;
-        this.interceptorChain = interceptorChain;
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public T getObject() {
+        // Resolve dependencies lazily — by the time getObject() is called
+        // the auto-configuration has run and all beans are available.
+        ElasticTemplate elasticTemplate = applicationContext.getBean(ElasticTemplate.class);
+        MapperRegistry mapperRegistry = applicationContext.getBean(MapperRegistry.class);
+        XMLMapperParser xmlMapperParser = applicationContext.getBean(XMLMapperParser.class);
+        InterceptorChain interceptorChain = applicationContext.getBean(InterceptorChain.class);
         return (T) MapperProxyFactory.createMapper(mapperInterface, elasticTemplate,
                 mapperRegistry, xmlMapperParser, interceptorChain);
     }

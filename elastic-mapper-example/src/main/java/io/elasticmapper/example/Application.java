@@ -1,6 +1,6 @@
 package io.elasticmapper.example;
 
-import io.elasticmapper.spring.scan.MapperScan;
+import io.elasticmapper.spring.scan.ESMapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -18,7 +18,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * under the {@code elastic-mapper.*} properties.
  */
 @SpringBootApplication
-@MapperScan("io.elasticmapper.example.mapper")
+@ESMapperScan("io.elasticmapper.example.mapper")
 public class Application {
 
     public static void main(String[] args) {

@@ -22,7 +22,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Import(MapperScannerRegistrar.class)
-public @interface MapperScan {
+public @interface ESMapperScan {
 
     /**
      * Base packages to scan for Mapper interfaces.

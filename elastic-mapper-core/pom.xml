@@ -12,6 +12,7 @@
 
     <artifactId>elastic-mapper-core</artifactId>
     <name>ElasticMapper Core</name>
+    <packaging>jar</packaging>
     <description>Core engine — no Spring dependency. Annotations, binding, parsing, scripting, execution.</description>
 
     <dependencies>
@@ -31,7 +32,6 @@
         <dependency>
             <groupId>ognl</groupId>
             <artifactId>ognl</artifactId>
-            <version>3.3.4</version>
         </dependency>
 
         <!-- Logging -->
@@ -61,7 +61,6 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.2.12</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
