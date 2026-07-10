@@ -10,7 +10,7 @@ server:
 
 elastic-mapper:
   hosts:
-    - 10.0.13.131:9200
+    - 127.0.0.1:9200
   scheme: http
   connect-timeout-ms: 5000
   socket-timeout-ms: 30000
@@ -27,5 +27,5 @@ elastic-mapper:
 
 logging:
   level:
-    io.elasticmapper: DEBUG
-    io.elasticmapper.example: DEBUG
+    io.github.timtools.elasticmapper: DEBUG
+    io.github.timtools.elasticmapper.example: DEBUG

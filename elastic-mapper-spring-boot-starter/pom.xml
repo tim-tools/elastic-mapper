@@ -5,19 +5,19 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>io.elasticmapper</groupId>
+        <groupId>io.github.timtools</groupId>
         <artifactId>elastic-mapper-parent</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0</version>
     </parent>
 
     <artifactId>elastic-mapper-spring-boot-starter</artifactId>
     <name>ElasticMapper Spring Boot Starter</name>
     <packaging>jar</packaging>
-    <description>Auto-configuration and @MapperScan for Spring Boot integration.</description>
+    <description>Auto-configuration and @ESMapperScan for Spring Boot integration.</description>
 
     <dependencies>
         <dependency>
-            <groupId>io.elasticmapper</groupId>
+            <groupId>io.github.timtools</groupId>
             <artifactId>elastic-mapper-core</artifactId>
             <version>${project.version}</version>
         </dependency>

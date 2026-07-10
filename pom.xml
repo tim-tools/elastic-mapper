@@ -4,17 +4,39 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.elasticmapper</groupId>
+    <groupId>io.github.timtools</groupId>
     <artifactId>elastic-mapper-parent</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
 
     <name>ElasticMapper Parent</name>
     <description>An Elasticsearch ORM framework inspired by MyBatis + MyBatis-Plus</description>
+    <url>https://github.com/tim-tools/elastic-mapper</url>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:git@github.com:tim-tools/elastic-mapper.git</connection>
+        <developerConnection>scm:git:git@github.com:tim-tools/elastic-mapper.git</developerConnection>
+        <url>https://github.com/tim-tools/elastic-mapper</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>tim-tools</id>
+            <name>tim-tools</name>
+            <url>https://github.com/tim-tools</url>
+        </developer>
+    </developers>
 
     <modules>
         <module>elastic-mapper-core</module>
-        <module>elastic-mapper-generator</module>
         <module>elastic-mapper-spring-boot-starter</module>
         <module>elastic-mapper-example</module>
     </modules>

@@ -1,1 +1,1 @@
-io.elasticmapper.spring.autoconfigure.ElasticMapperAutoConfiguration
+io.github.timtools.elasticmapper.spring.autoconfigure.ElasticMapperAutoConfiguration

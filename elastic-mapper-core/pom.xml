@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>io.elasticmapper</groupId>
+        <groupId>io.github.timtools</groupId>
         <artifactId>elastic-mapper-parent</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0</version>
     </parent>
 
     <artifactId>elastic-mapper-core</artifactId>

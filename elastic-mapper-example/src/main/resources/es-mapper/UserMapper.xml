@@ -4,7 +4,7 @@
     Placed in classpath:es-mapper/ — auto-scanned by ElasticMapper.
 
     Supported dynamic tags:
-      <if test="...">       — conditional block (JEXL expression)
+      <if test="...">       — conditional block (OGNL expression)
       <where>               — auto-strips leading comma from first child
       <set>                 — auto-strips leading comma from first child
       <foreach>             — iterate collection

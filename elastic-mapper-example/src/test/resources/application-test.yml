@@ -6,4 +6,4 @@ elastic-mapper:
 
 logging:
   level:
-    io.elasticmapper: DEBUG
+    io.github.timtools.elasticmapper: DEBUG
