@@ -21,7 +21,7 @@ ElasticMapper 将 MyBatis 的编程范式带入 Elasticsearch——通过接口 
 
 ```xml
 <dependency>
-    <groupId>io.github.timtools</groupId>
+    <groupId>io.github.tim-tools</groupId>
     <artifactId>elastic-mapper-spring-boot-starter</artifactId>
     <version>1.0.0</version>
 </dependency>

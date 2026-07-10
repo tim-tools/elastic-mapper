@@ -20,8 +20,8 @@ elastic-mapper:
   date-format: yyyy-MM-dd HH:mm:ss
   # 开启后每次 ES 请求会在日志中打印最终 DSL（调试用）
   log-dsl: true
-  username: elastic
-  password: fx6kjFPdvFkn3XbtB8VB
+  username: ${ES_USERNAME:elastic}
+  password: ${ES_PASSWORD:changeme}
   mapper-xml-locations:
     - es-mapper/
 

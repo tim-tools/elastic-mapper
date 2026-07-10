@@ -18,13 +18,14 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Verification test against real ES instance: 10.0.13.131:9200
+ * Verification test against a real ES instance.
+ * Configure via env vars: ES_HOST (default 127.0.0.1:9200), ES_USERNAME (default elastic), ES_PASSWORD (default changeme).
  */
 @DisplayName("Real ES Verification")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class RealESVerificationTest {
 
-    static final String ES_HOST = "10.0.13.131:9200";
+    static final String ES_HOST = System.getenv().getOrDefault("ES_HOST", "127.0.0.1:9200");
     static final String INDEX_PREFIX = "elastic_mapper_verify";
     static String INDEX;  // set at runtime in setup()
 
@@ -59,8 +60,8 @@ class RealESVerificationTest {
         ElasticMapperConfig config = ElasticMapperConfig.builder()
                 .hosts(ES_HOST)
                 .scheme("http")
-                .username("elastic")
-                .password("fx6kjFPdvFkn3XbtB8VB")
+                .username(System.getenv().getOrDefault("ES_USERNAME", "elastic"))
+                .password(System.getenv().getOrDefault("ES_PASSWORD", "changeme"))
                 .connectTimeoutMs(5000)
                 .socketTimeoutMs(10000)
                 .dateFormat("yyyy-MM-dd HH:mm:ss")

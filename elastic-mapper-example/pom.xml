@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>io.github.timtools</groupId>
+        <groupId>io.github.tim-tools</groupId>
         <artifactId>elastic-mapper-parent</artifactId>
         <version>1.0.0</version>
     </parent>
@@ -14,10 +14,15 @@
     <name>ElasticMapper Example</name>
     <description>Example project demonstrating ElasticMapper usage with Spring Boot — entities, annotation-based &amp; XML-based Mappers, and a REST controller.</description>
 
+    <properties>
+        <!-- 示例模块不发布到 Maven Central -->
+        <maven.deploy.skip>true</maven.deploy.skip>
+    </properties>
+
     <dependencies>
         <!-- ElasticMapper Spring Boot Starter -->
         <dependency>
-            <groupId>io.github.timtools</groupId>
+            <groupId>io.github.tim-tools</groupId>
             <artifactId>elastic-mapper-spring-boot-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
